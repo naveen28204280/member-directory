@@ -20,8 +20,13 @@ jobs:
                   echo "Match: false"
               fi
           - name: Check if active
-            if: ${{ env.AUTO_MERGE != '1' }}
-            run: exit 1 
+            env:
+             AUTO_MERGE: ${{ secrets.AUTO_MERGE }}
+            run: |
+             if [[ "$AUTO_MERGE" != "1" ]]; then
+               echo "AUTO_MERGE is not enabled"
+               exit 1
+             fi
           - name: Get code
             uses: actions/checkout@v4
             with:
