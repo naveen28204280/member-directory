@@ -4,26 +4,15 @@ name: Validate PR
 on:
     pull_request:
 
-jobs: 
+jobs:
     validate-PR:
         runs-on: ubuntu-latest
+        env:
+          AUTO_MERGE: ${{ secrets.AUTO_MERGE }}
         steps:
-          - name: Debug secret
-            run: |
-              echo "Secret length: ${#AUTO_MERGE}"
-              echo "Secret value: '$AUTO_MERGE'"
-              if [[ ${{ secrets.AUTO_MERGE }} == "true" ]]; then
-                  echo "Match: true"
-              else
-                  echo "Match: false"
-              fi
           - name: Check if active
-            run: |
-             echo "Tests"
-             if [[ ${{ secrets.AUTO_MERGE }} != "true" ]]; then
-               echo "AUTO_MERGE is not enabled"
-               exit 1
-             fi
+            if: env.AUTO_MERGE != '1'
+            run: exit 1
           - name: Get code
             uses: actions/checkout@v4
             with:
@@ -38,12 +27,12 @@ jobs:
                 echo "changes in assets $count_assets"
                 echo "changes in members $changes_members"
                 echo "deletions in members $deleted_members"
-                if (( count_assets > 1 )); then 
+                if (( count_assets > 1 )); then
                   echo "Error: Only one image should be added in assets/ directory"
                   exit 1
                 elif (( count_assets == 0 )); then
                 echo "Error: Atleast one image must be added"
-                  exit 1 
+                  exit 1
                 fi
                 if (( changes_members > 10 )); then
                 echo "Error: Only one member must be added"
