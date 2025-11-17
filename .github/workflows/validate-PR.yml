@@ -7,24 +7,20 @@ on:
 jobs: 
     validate-PR:
         runs-on: ubuntu-latest
-        env:
-          AUTO_MERGE: ${{ secrets.AUTO_MERGE }}
         steps:
           - name: Debug secret
             run: |
               echo "Secret length: ${#AUTO_MERGE}"
               echo "Secret value: '$AUTO_MERGE'"
-              if [[ "$AUTO_MERGE" == "true" ]]; then
+              if [[ ${{ secrets.AUTO_MERGE }} == "true" ]]; then
                   echo "Match: true"
               else
                   echo "Match: false"
               fi
           - name: Check if active
-            env:
-             AUTO_MERGE: ${{ secrets.AUTO_MERGE }}
             run: |
              echo "Tests"
-             if [[ "$AUTO_MERGE" != "true" ]]; then
+             if [[ ${{ secrets.AUTO_MERGE }} != "true" ]]; then
                echo "AUTO_MERGE is not enabled"
                exit 1
              fi
