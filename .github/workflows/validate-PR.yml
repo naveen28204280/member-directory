@@ -24,7 +24,7 @@ jobs:
              AUTO_MERGE: ${{ secrets.AUTO_MERGE }}
             run: |
              echo "Tests"
-             if [[ "$AUTO_MERGE" != "1" ]]; then
+             if [[ "$AUTO_MERGE" != "true" ]]; then
                echo "AUTO_MERGE is not enabled"
                exit 1
              fi
