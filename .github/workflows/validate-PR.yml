@@ -14,7 +14,7 @@ jobs:
             run: |
               echo "Secret length: ${#AUTO_MERGE}"
               echo "Secret value: '$AUTO_MERGE'"
-              if [[ "$AUTO_MERGE" == "1" ]]; then
+              if [[ "$AUTO_MERGE" == "true" ]]; then
                   echo "Match: true"
               else
                   echo "Match: false"
