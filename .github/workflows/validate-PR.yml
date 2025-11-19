@@ -7,8 +7,7 @@ on:
 jobs:
     validate-PR:
         runs-on: ubuntu-latest
-        env:
-          AUTO_MERGE: ${{ secrets.AUTO_MERGE }}
+        environment: myenv
         steps:
           - name: Check if active
             if: env.AUTO_MERGE != '1'
