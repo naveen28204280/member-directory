@@ -7,10 +7,9 @@ on:
 jobs:
     validate-PR:
         runs-on: ubuntu-latest
-        environment: myenv
         steps:
           - name: Check if active
-            if: env.AUTO_MERGE != '1'
+            if: env.AUTO_MERGE!='1'
             run: exit 1
           - name: Get code
             uses: actions/checkout@v4
