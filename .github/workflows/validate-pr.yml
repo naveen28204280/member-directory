@@ -9,7 +9,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
           - name: Check if active
-            if: ${{ secrets.AUTO_MERGE }}!='1'
+            if: ${{ secrets.AUTO_MERGE!='1' }}
             run: exit 1
           - name: Get code
             uses: actions/checkout@v4
