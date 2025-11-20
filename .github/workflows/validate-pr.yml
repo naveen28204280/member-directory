@@ -1,4 +1,4 @@
-j# .github/workflows/validate-PR.yml
+# .github/workflows/validate-PR.yml
 
 name: Validate PR
 on:
